@@ -1,0 +1,45 @@
+<head>
+<script type="text/javascript">
+	$("#signupbutton").click(function(){
+	
+		$("#notification").slideDown("slow",function(){
+			$("#message").html("Processing...",function(){
+				$("#message").delay(100).fadeIn("slow");
+			});
+		});
+		
+		$.post('signup.php',$("#signupform").serialize(),function(data){
+		$("#notification").fadeIn("slow",function(){
+				$("#message").html(data);
+				$("#message").fadeIn("slow");
+				$("#message").delay(3000).fadeOut("slow",function(){
+					$("#notification").delay(100).slideUp("slow");
+				});
+			});
+		});
+	});
+</script>
+</head>
+<div id="signupbox">
+		<h2>Signup</h2> <br/>
+		<form method="POST" id="signupform" onSubmit="return false;">
+		<div id="signupcontentleft" style="float:left">
+			<label>First Name</label> : <input type="text" class="inputfield" name="fname"/><br/>
+			<label>Username</label> : <input type="text" class="inputfield" name="uname"/><br/>
+			<label>Choose Password</label> : <input type="password" class="inputfield" name="pass1"/><br/>
+			<label>Retype Password</label> : <input type="password" class="inputfield" name="pass2"/><br/>
+			<label>Age</label> : <input type="number" class="inputfield" name="age" min="0" max="80"/><br/>
+			<label>Mobile</label> : <input type="text" class="inputfield" name="mobile" maxlength="10" placeholder="+91"/><br/>
+		</div>
+		<div id="signupcontentright" style="float:right">
+			<label>Last Name :</label> <input type="text" class="inputfield" name="lname"/><br/>
+			<label>Email :</label> <input type="email" class="inputfield" name="email"/><br/>
+			<div style="text-align:left;margin-bottom:5px;"><label>Gender</label> : <input type="radio" name="gender" value="m" CHECKED/>Male 
+									<input type="radio" name="gender" value="f"/>Female<br/></div>
+			<label style="position:relative;top:-40px;">Current Address :</label>  <textarea rows="3" cols="20" name="caddress"></textarea><br/>
+			<label style="position:relative;top:-40px;">Permanent Address :</label>  <textarea rows="3" cols="20" name="paddress" align="top"></textarea><br/>
+			<label>Occupation</label> : <input type="text" class="inputfield" name="occupation"/><br/>
+			<input type="button" class="button" name="signup" value="SignUp" id="signupbutton"/>
+		</div>
+		</form>
+	</div>

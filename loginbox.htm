@@ -1,0 +1,35 @@
+<head>
+<script type="text/javascript">
+	$("#loginbutton").click(function(){
+	
+		$("#notification").slideDown("slow",function(){
+			$("#message").html("Processing...",function(){
+				$("#message").delay(100).fadeIn("slow");
+			});
+		});
+		
+		$.post('login.php',$("#loginform").serialize(),function(data){
+		$("#notification").fadeIn("slow",function(){
+				$("#message").html(data);
+				$("#message").fadeIn("slow");
+				$("#message").delay(2000).fadeOut("slow",function(){
+					$("#notification").delay(100).slideUp("slow",function(){
+						location.reload(0);
+					});
+				});
+			});
+		});
+	});
+</script>
+</head>
+
+<div id="loginbox">
+		<h2>Login</h2> <br/>
+		<form method="POST" id="loginform" onSubmit="return false;">
+		<div id="logincontent">
+			<label>Username</label> : <input type="text" class="inputfield" name="user"/><br/>
+			<label>Password</label> : <input type="password" class="inputfield" name="pass"/><br/>
+			<input type="button" class="button" name="login" id="loginbutton" value="Login" />
+		</div>
+		</form>
+	</div>

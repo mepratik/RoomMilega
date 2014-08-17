@@ -1,0 +1,103 @@
+<html>
+<head>
+<script type="text/javascript">
+$("#type").change(function(){
+	$val=$("#type").val();
+	if($val == 'Boys\' Hostel' || $val== "Girls\' Hostel")
+	{
+		$("#honly").fadeIn("slow");
+		$("#fponly").fadeOut("slow");
+	}
+	else if($val == 'Flat' || $val == 'PG')
+	{
+		$("#honly").fadeOut("slow");
+		$("#fponly").fadeIn("slow");
+	}
+	else
+	{
+		$("#honly").fadeOut("slow");
+		$("#fponly").fadeOut("slow");
+	}
+		
+});
+</script>
+
+<script type="text/javascript">
+	$("#addaccbutton").click(function(){
+	
+		$("#notification").slideDown("slow",function(){
+			$("#message").html("Processing...",function(){
+				$("#message").delay(100).fadeIn("slow");
+			});
+		});
+		
+		$.post('addacc.php',$("#addaccform").serialize(),function(data){
+		$("#notification").fadeIn("slow",function(){
+				$("#message").html(data);
+				$("#message").fadeIn("slow");
+				$("#message").delay(2000).fadeOut("slow",function(){
+					$("#notification").delay(100).slideUp("slow",function(){
+						location.reload(0);
+					});
+				});
+			});
+		});
+	});
+</script>
+
+</head>
+
+<div id="addaccbox" class="scrollbar">
+<form id="addaccform" method="POST" onSubmit="return false;">
+		<h2>Add Accomodation Information</h2> <br/>
+		<div id="addaccleft">
+		<label>Accomodation Type :</label> <select name="type" id="type" class="inputfield"><option SELECTED>Select</option><option>Flat</option><option>PG</option><option>Boys' Hostel</option><option>Girls' Hostel</option>
+											</select><br/>
+		<label>Where is room Located? :</label> <input type="text" name="location" class="inputfield" /></br>
+		<label>City :</label> <input type="text" name="city" class="inputfield" /></br>
+		<label>State :</label> <input type="text" name="state" class="inputfield" /></br>
+		
+		<label>Rent :</label> <input type="number" name="rent" min="500" step="50" class="inputfield"/></br>
+		<label>Number of Rooms :</label> <input name="num_rooms" type="number" min="1" max="50" class="inputfield"></br>
+		<label>Max Beds Per Room:</label> <input name="max_beds" type="number" min="1" max="5" class="inputfield"></br>
+		<label>Bathroom Type :</label> <select name="btype" class="inputfield"><option SELECTED>Select</option><option>Attached</option><option>Common</option><option>Both</option> </select><br/>
+		<label>Beds provided :</label> <input type="radio" name="bed_provided" value="1"/>Yes <input type="radio" name="bed_provided" value="0"/>No</br>
+		<label>Notes :</label> <textarea rows="3" cols="30" name="notes"></textarea></br>
+		
+		</div>
+		
+		
+		<div id="addaccright">
+		<label>Jet Pump :</label> <input type="radio" name="pump" value="1"/>Yes <input type="radio" name="pump" value="0"/>No</br>
+		<label>Hot Water :</label> <input type="radio" name="hot_water" value="1"/>Yes <input type="radio" name="hot_water" value="0"/>No</br>
+		<label>Security Available :</label> <input type="radio" name="security_avail" value="1"/>Yes <input type="radio" name="security_avail" value="0"/>No</br>
+		<label>24 Hour Electricty :</label> <input type="radio" name="electricty24" value="1"/>Yes <input type="radio" name="electricity24" value="0"/>No</br>
+		<label>Availabity :</label> <select name="isavailable"><option  SELECTED>Available</option><option>Not-Available</option></select></br>
+		<label>Garage :</label> <input type="radio" name="garage" value="1"/>Yes <input type="radio" name="garage" value="0"/>No</br>
+		
+		
+		<!-- for flat & pg -->
+		<div id="fponly" style="diaplay:none">
+		<label>Available For :</label> <select name="availablefor"><option>Family</option><option>Boys</option><option>Girls</option><option>Unisex</option>  </select><br/>
+		<label>Toilet Type :</label> <select name="ttype"><option SELECTED>Select</option><option>Indian</option><option>Western</option><option>Both</option> </select><br/>
+		<label>Kitchen Available :</label> <input type="radio" name="kitchen" value="1"/>Yes <input type="radio" name="kitchen" value="0"/>No</br>
+		<label>Electricity Bill :</label> <select name="elect_bill"><option SELECTED>Included</option><option>Excluded</option> </select><br/>
+		</div>
+		
+		<!-- for hostel only -->
+		<div id="honly" style="display:none">
+		<label>Gym :</label> <input type="radio" name="gym" value="1"/>Yes <input type="radio" name="gym" value="0"/>No</br>
+		<label>Laundary :</label> <input type="radio" name="laundary" value="1"/>Yes <input type="radio" name="laundary" value="0"/>No</br>
+		<label>Newspaper :</label> <input type="radio" name="newspaper" value="1"/>Yes <input type="radio" name="newspaper" value="0"/>No</br>
+		<label>TV :</label> <input type="radio" name="tv" value="1"/>Yes <input type="radio" name="tv" value="0"/>No</br>
+		<label>Guest Room :</label> <input type="radio" name="guest_room" value="1"/>Yes <input type="radio" name="guest_room" value="0"/>No</br>
+		<label>AC Room :</label> <input type="radio" name="ac" value="1"/>Yes <input type="radio" name="ac" value="0"/>No</br>
+		<label>Swimming Pool :</label> <input type="radio" name="swimming" value="1"/>Yes <input type="radio" name="swimming" value="0"/>No</br>
+		<label>WiFi :</label> <input type="radio" name="wifi" value="1"/>Yes <input type="radio" name="wifi" value="0"/>No</br>
+	
+		</div>
+		<input type="submit" class="button" name="addaccbutton" id="addaccbutton" value="Add Accomodation" />
+		</div>
+		</form>
+	</div>
+		</html>

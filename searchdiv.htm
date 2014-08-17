@@ -1,0 +1,45 @@
+		<head>
+		<script type="text/javascript">
+		//Effects on search options - makes them fade in when clicked inside search box
+		$('#query').click(function(){
+			$("#searchopt").fadeIn("slow");
+		});
+		
+		$('#find').click(function() {
+		
+			$('#searchresults').fadeOut('slow');
+			$('#searchdiv').animate({
+						marginTop:'10px',
+						width:'800px',
+			},900,function(){
+					var query = $('#query').val();
+					var type = $("input[type='radio']:checked").val();
+					$.get("search.php?query="+query+"&type="+type,function(results){
+						$('#searchresults').html(results);
+						$('#searchresults').delay(200).slideDown("slow");
+					});
+			});
+		});
+		</script>
+		</head>
+		
+		<div id="searchdiv">
+		<form method="GET" onSubmit="return false;">
+			<h2>What do you need?</h2> <br/>
+			<input type="name" name="query" id="query" class="searchbox"/> 
+			<input type="button" class="searchbutton" name="find" id="find" value="Find" /> <br/>
+			<div id="searchopt">
+			<label>Search For</label> : <input type="radio" name="type" id="type" value="all" CHECKED/> All
+						 <input type="radio" name="type" id="type" value="flat" /> Flat
+						 <input type="radio" name="type" id="type" value="PG" /> PG
+						 <input type="radio" name="type" id="type" value="hostel" /> Hostel
+			</div>
+		</form>
+		
+		<div id="searchresults">
+			
+		</div>		<!-- Search results div ends -->
+		<div id="pageno">
+			<!-- to be edited -->
+		</div>
+		</div>
